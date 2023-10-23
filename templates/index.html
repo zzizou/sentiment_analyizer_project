@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analyzer</title>  
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gabarito&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+  <div class="navbarz">
+    <div class="navbar-left">Sentiment Analyzer</div>
+    <div>
+    <button class="borderless-button" id="showIntro" class="navbar-right">About</button>
+    <button class="borderless-button" id="hateSpeech" class="navbar-right">Hate Speech</button>
+    </div>
+
+
+  </div>
+  
+  
+ 
+
+  <br>
+  <div class="row">
+    <div class="offset-3 col-6">
+      <form method="POST" action="/predict">
+        <div class="mb-3">
+
+          <input type="text" name="user_input" class="form-control form-control-lg" id="colFormLabelLg" placeholder="Write Your Comment Here!    ">
+        </div>
+        <input class="btn btn-primary" type="submit" value="Check Sentiment">
+      </form>
+  
+  
+    </div>  
+  </div>
+  <br>
+  <div class="row">
+    <div class="offset-3 col-6">
+      {% if result == "HATE COMMENT!" %}
+              <div class="alert alert-danger" role="alert">
+                  <h5 class="text-primary text-center">This looks a Hate Comment to me!</h5>
+              </div>
+          {% elif result == "OFFENSIVE" %}
+              <div class="alert alert-warning" role="alert">
+                <h5 class="text-center text-danger">This looks Offensive to me!</h5>
+              </div>
+          {% elif result == "NO HATE" %}
+              <div class="alert alert-success" role="alert">
+                  <h5 class="text-success text-center">I don't see any hate in this.</h5>
+              </div>
+          {% endif %}
+    </div>
+  </div>    
+  </div>
+
+  <div id="introSection" style="display: none;">
+    <div class="introduction" id="intro">
+      <p>This sentiment analyzer is designed to determine the sentiment or emotional 
+        tone expressed in a piece of text, such as a review, comment, tweet, or any other 
+        form of written communication.It can classify the comment into three categories: Hate , No Hate and 
+      offensive. </p>
+  
+    </div>
+  </div>
+  <div id="HateSection" style="display: none;">
+    <div class="introduction" id="intro">
+      <p>Hate speech is a communication that spreads hatred towards an individual or group. Everyone has the freedom 
+        to speak but it does not mean that you can violate the right of an individual. It is a crime and is prohibited by the Criminal Code of Finland.
+      A hate speech that has the following factors are punishbale: <ul>
+        <li>Race/Ethnicity</li>
+        <li>Gender</li>
+        <li>Religion</li>
+        <li>Disability</li>
+      </ul> </p>
+  
+    </div>
+  </div>
+
+  <script>
+    // JavaScript to toggle the visibility of the introduction section
+    document.getElementById('showIntro').addEventListener('click', function () {
+        var introSection = document.getElementById('introSection');
+        if (introSection.style.display === 'none' || introSection.style.display === '') {
+            introSection.style.display = 'block';
+        } else {
+            introSection.style.display = 'none';
+        }
+    });
+  </script>
+  <script>
+    // JavaScript to toggle the visibility of the introduction section
+    document.getElementById('hateSpeech').addEventListener('click', function () {
+        var introSection = document.getElementById('HateSection');
+        if (introSection.style.display === 'none' || introSection.style.display === '') {
+            introSection.style.display = 'block';
+        } else {
+            introSection.style.display = 'none';
+        }
+    });
+  </script>
+  
+     
+</body>
+</html>
